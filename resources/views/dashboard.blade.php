@@ -24,7 +24,7 @@
 
     <div class="flex gap-5">
 
-        <div class="side-bar fixed bg-slate-100 border p-5 h-screen rounded-r-xl w-72">
+        <div class="side-bar fixed bg-slate-100 border p-5 h-screen my-2 rounded-r-xl w-72">
             <div class="logo flex gap-2 items-center">
                 <img class="w-10" src="{{ asset('img/logo.png') }}" alt="">
                 <h3>DASHBOARD</h3>

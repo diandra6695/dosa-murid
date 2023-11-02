@@ -19,11 +19,11 @@
 <body>
 
     <section class="w-screen h-screen relative">
-        <img src="{{ asset('img/test.svg') }}" alt="test" class="w-full h-full object-cover">
+        <img src="{{ asset('img/test.jpg') }}" alt="test" class="w-full h-full object-cover">
         <div class="absolute top-0 left-0 w-screen h-screen bg-black bg-opacity-40 text-center">
             <div class="container mx-auto px-4 h-full flex flex-col justify-center items-center">
                 <div class="text-4xl font-bold text-white mb-3">{{ config('app.name', 'Laravel') }}</div>
-                <div class="text-xl text-gray-200 mb-6">Masukan nis kamu...dibawah sini...</div>
+                <div class="text-xl text-gray-200 mb-6">Masukin NIS Kamu Dulu Ya...</div>
                 <form action="{{ route('dashboard') }}" class="w-full">
                     <div class="flex flex-wrap justify-center">
                         <input type="text" id="nis" name="nis" placeholder="NIS" required
