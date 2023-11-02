@@ -26,17 +26,6 @@ class SiswaController extends Controller
     // {
     //     return view('dashboard');
     // }
-
-    public function dashboard(Request $request)
-    {
-        $nis = $request->nis;
-        $nganu = Siswa::where('nis', $request->nis)->with('aksi.listPelanggaran.pelanggaran')->first();
-        $pelanggaran = Pelanggaran::all();
-        $siswa = Siswa::where('nis', $nis)->with('kelas.jurusan')->first();
-        // $aksi = Aksi::where('kode_aksi', $aksi)->with('siswa.kelas.jurusan', 'guruBK', 'listPelanggaran.pelanggaran')->first();
-        return view('dashboard', compact('nis', 'siswa', 'pelanggaran', 'nganu'));
-    }
-
     public function totalPoint(Int $nis): Int
     {
         $siswa = Siswa::where('nis', $nis)->with('aksi.listPelanggaran.pelanggaran')->first();
@@ -53,5 +42,15 @@ class SiswaController extends Controller
         }
 
         return $total;
+    }
+
+    public function dashboard(Request $request)
+    {
+        $nis = $request->nis;
+        $nganu = Siswa::where('nis', $request->nis)->with('aksi.listPelanggaran.pelanggaran')->first();
+        $pelanggaran = Pelanggaran::all();
+        $siswa = Siswa::where('nis', $nis)->with('kelas.jurusan')->first();
+        // $aksi = Aksi::where('kode_aksi', $aksi)->with('siswa.kelas.jurusan', 'guruBK', 'listPelanggaran.pelanggaran')->first();
+        return view('dashboard', compact('nis', 'siswa', 'pelanggaran', 'nganu'));
     }
 }

@@ -1,51 +1,72 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<x-header />
+<div class="flex">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <div class="side-bar fixed bg-black border  p-5 mx-4 my-3 rounded-3xl">
+        <div class="logo flex gap-2 items-center">
+            <img class="w-10" src="{{ asset('img/logo.png') }}" alt="">
+        </div>
+        <div class="navigation flex flex-col gap-56 mb-3 ">
+            <ul>
+                <li class="rounded-2xl  text-white p-3">
+                    <a class="" href="{{ route('dashboard') }}?nis={{ $siswa->nis }}"><span
+                            class="text-3xl material-symbols-outlined">
+                            home
+                        </span></a>
+                </li>
+                <li class="rounded-2xl  text-white p-3">
+                    <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
+                            class="text-3xl material-symbols-outlined">
+                            note_alt
+                        </span></a>
+                </li>
+                <li class="rounded-2xl  text-white p-3">
+                    <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
+                            class="text-3xl material-symbols-outlined">
+                            format_list_bulleted
+                        </span></a>
+                </li>
+                <li class="rounded-2xl  text-white p-3">
+                    <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
+                            class="text-3xl material-symbols-outlined">
+                            receipt_long
+                        </span></a>
+                </li>
+            </ul>
+            <li class="rounded-2xl list-none  text-white p-3">
+                <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
+                        class="text-3xl material-symbols-outlined">
+                        logout
+                    </span></a>
+            </li>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-
-<body class="bg-slate-200 text-slate-900">
-
-    <div class="bg-white rounded-xl md:text-4xl text-xl font-bold py-10">
-        <div class="container mx-auto text-slate-900 text-center">{{ config('app.name', 'Laravel') }}</div>
+        </div>
     </div>
 
-    <div class="mt-4 bg-white shadow-xl rounded-xl p-4 container mx-auto mb-5">
-        <div class="text-xl font-semibold py-3 px-4 bg-slate-900 rounded-xl text-white mb-3">NIS : {{ $nis }}
+    <div class="bg-white shadow-xl rounded-xl p-4 container mt-3 ml-28 w-11/12 mb-5">
+        <x-title />
+        <div class="text-xl font-semibold py-3 px-4 bg-empat rounded-xl text-black mb-3">NIS : {{ $nis }}
         </div>
         @if ($siswa == null)
             <div class="text-xl w-full bg-slate-900 rounded-xl p-5 text-white text-center">..:: SISWA TIDAK DITEMUKAN
                 ::..
             </div>
         @else
-            <div class="border p-5 rounded-xl border-slate-200">
+            <div class="bg-base p-8 rounded-3xl">
                 <div class="md:w-1/2 p-2">
-                    <div class="grid text-base grid-cols-2 text-left font-semibold mb-3">
-                        <h3 class="text-slate-500">Nama</h3>
+                    <div class="grid  grid-cols-2 text-left font-semibold mb-3">
+                        <h3 class="font-normal">Nama</h3>
                         <h3>{{ $siswa->nama }}</h3>
                     </div>
-                    <div class="grid text-base grid-cols-2 text-left font-semibold mb-3">
-                        <h3 class="text-slate-500">NISN</h3>
+                    <div class="grid text-black grid-cols-2 text-left font-semibold mb-3">
+                        <h3 class="font-normal">NISN</h3>
                         <h3>{{ $siswa->nisn }}</h3>
                     </div>
-                    <div class="grid text-base grid-cols-2 text-left font-semibold mb-3">
-                        <h3 class="text-slate-500">Kelas</h3>
+                    <div class="grid text-black grid-cols-2 text-left font-semibold mb-3">
+                        <h3 class="font-normal">Kelas</h3>
                         <h3>{{ $siswa->kelas->nama_kelas }}</h3>
                     </div>
-                    <div class="grid text-base grid-cols-2 text-left font-semibold mb-3">
-                        <h3 class="text-slate-500">Jurusan</h3>
+                    <div class="grid text-black grid-cols-2 text-left font-semibold mb-3">
+                        <h3 class="font-normal">Jurusan</h3>
                         <h3>{{ $siswa->kelas->jurusan->nama_jurusan }}</h3>
                     </div>
                 </div>
@@ -55,20 +76,20 @@
                     <div class="mb-4">
                         <label for="tanggal" class="block mb-2 text-lg font-medium">Tanggal</label>
                         <input type="date" name="tanggal" id="tanggal"
-                            class="bg-gray-50 border border-gray-300 text-lg rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 ">
+                            class="bg-white shadow border-none rounded-xl px-5 py-3 focus:empat-second focus:empat-second block w-full">
                     </div>
 
 
                     <div class="mb-4">
                         <label for="waktu" class="block mb-2 text-lg font-medium">Waktu</label>
                         <input type="time" name="waktu" id="waktu"
-                            class="bg-gray-50 border border-gray-300 text-lg rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 ">
+                            class="bg-white shadow border-none rounded-xl px-5 py-3 focus:empat-second focus:empat-second block w-full">
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-5">
                         <label for="kode_bk" class="block mb-2 text-lg font-medium">Guru BK</label>
                         <select id="kode_bk" name="kode_bk"
-                            class="bg-gray-50 border border-gray-300  text-lg rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 ">
+                            class="bg-white shadow border-none rounded-xl px-5 py-3 focus:empat-second focus:empat-second block w-full">
                             <option value="" disabled selected>--- PILIH GURU BK ---</option>
                             @foreach ($guruBK as $bk)
                                 <option value="{{ $bk->kode_bk }}">{{ $bk->nama }}</option>
@@ -77,7 +98,7 @@
                     </div>
 
                     <button type="submit"
-                        class="text-white bg-slate-900 hover:bg-slate-950 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-md px-5 py-2.5 text-center ">Catat
+                        class="text-white bg-black hover:bg-slate-950 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-md px-5 py-2.5 text-center ">Catat
                         Pelanggaran</button>
                 </form>
 
@@ -85,6 +106,5 @@
         @endif
     </div>
 
-</body>
-
-</html>
+</div>
+<x-footer />
