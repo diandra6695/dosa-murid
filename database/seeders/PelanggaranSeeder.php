@@ -37,6 +37,6 @@ class PelanggaranSeeder extends Seeder
             'kode_pelanggaran' => 'PLG005',
             'nama_pelanggaran' => 'Lainnya',
             'poin' => 21,
-        ]);
+        ]); 
     }
 }

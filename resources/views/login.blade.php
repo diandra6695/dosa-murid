@@ -8,10 +8,14 @@
             <div class="text-md text-center mb-6">Sistem pencatatan pelanggaran siswa</div>
 
             <div class="text-sm my-3 ml-1">Masukin NIS Dulu Ya...</div>
-            <form action="{{ route('dashboard.siswa') }}" class="w-full">
+            <form action="{{ route('dashboard') }}" class="w-full">
                 <div class="flex flex-wrap justify-center">
-                    <input type="text" id="nis" name="nis" placeholder="NIS" required
+                    <input type="email" id="email" name="email" placeholder="Email" required
                         class="block w-full mb-3 p-4 text-gray-900 border-none rounded-3xl shadow bg-white sm:text-md focus:ring-blue-500 focus:border-blue-500 ">
+
+                    <input type="password" id="password" name="password" placeholder="password" required
+                        class="block w-full mb-3 p-4 text-gray-900 border-none rounded-3xl shadow bg-white sm:text-md focus:ring-blue-500 focus:border-blue-500 ">
+
                     <button type="submit"
                         class="px-5 w-full py-3 mb-3 text-md font-medium text-center text-white bg-second shadow rounded-3xl focus:outline-none">Cari</button>
                 </div>

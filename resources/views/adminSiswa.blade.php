@@ -8,7 +8,7 @@
             <div class="text-md text-center mb-6">Sistem pencatatan pelanggaran siswa</div>
 
             <div class="text-sm my-3 ml-1">Masukin NIS Dulu Ya...</div>
-            <form action="{{ route('dashboard.siswa') }}" class="w-full">
+            <form action="{{ route('dashboard') }}" class="w-full">
                 <div class="flex flex-wrap justify-center">
                     <input type="text" id="nis" name="nis" placeholder="NIS" required
                         class="block w-full mb-3 p-4 text-gray-900 border-none rounded-3xl shadow bg-white sm:text-md focus:ring-blue-500 focus:border-blue-500 ">

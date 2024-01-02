@@ -14,6 +14,10 @@ class SiswaController extends Controller
     {
         return view('siswa');
     }
+    public function admin()
+    {
+        return view('adminSiswa');
+    }
     public function result(Request $request)
     {
         $nis = $request->nis;
@@ -51,6 +55,6 @@ class SiswaController extends Controller
         $pelanggaran = Pelanggaran::all();
         $siswa = Siswa::where('nis', $nis)->with('kelas.jurusan')->first();
         // $aksi = Aksi::where('kode_aksi', $aksi)->with('siswa.kelas.jurusan', 'guruBK', 'listPelanggaran.pelanggaran')->first();
-        return view('dashboard', compact('nis', 'siswa', 'pelanggaran', 'nganu'));
+        return view('dashboardSiswa', compact('nis', 'siswa', 'pelanggaran', 'nganu'));
     }
 }

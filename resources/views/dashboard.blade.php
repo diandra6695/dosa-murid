@@ -6,7 +6,6 @@
     @else
         @php
             $test = app('App\Http\Controllers\SiswaController')->totalPoint($siswa->nis);
-            // $result adalah hasil dari pemanggilan fungsi controller
         @endphp
 
         <div class="flex">

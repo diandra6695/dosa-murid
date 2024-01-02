@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,
             GuruBKSeeder::class,
             PelanggaranSeeder::class,
+            UserSeeder::class,
         ]);
 
         Siswa::factory(100)->create();
