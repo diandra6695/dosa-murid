@@ -1,4 +1,4 @@
-<x-header />
+<x-header :page="$page" />
 
 <section class="w-screen h-screen flex justify-center items-center">
     <div class="bg-base flex justify-center items-center p-8 h-2/3 md:w-1/3 rounded-3xl shadow-xl">
@@ -20,7 +20,7 @@
                     class="px-5 w-full py-3 mb-3 text-md font-medium text-center text-white mt-5 bg-second shadow rounded-3xl focus:outline-none">Lanjut</button>
             </form>
             <footer class="text-center text-xs text-gray-500 mt-10">
-                <p>PT. Bogeng Media Prima</p>
+                <p class="">PT. Bogeng Media Prima <span class="text-red-400">X</span> Tefa Studio</p>
             </footer>
         </div>
     </div>

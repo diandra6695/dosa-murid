@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {
     public function index()
+
     {
-        return view('choseUser');
+        $page = [
+            'title' => env('APP_NAME', "LARAVEL") . " | HOME | Pilih User",
+            'description' => 'Sistem Pembukuan Anak Nakal',
+        ];
+        return view('choseUser', compact('page'));
     }
     public function test(Request $request)
     {
@@ -24,8 +31,43 @@ class LoginController extends Controller
             return redirect()->route('login');
         }
     }
-    public function login()
+    public function roleAction(Request $request)
     {
-        return view('login');
+        $validate = $request->validate([
+            'role' => 'required|min:4'
+        ]);
+
+        if ($request->role == "siswa") {
+            return redirect()->route('siswa.index')->with('message', "kamu login menggunakan Role Siswa");
+        } else {
+            return redirect()->route('login.admin')->with('message', 'Masuk sebagai ' . $request->role);
+        }
+    }
+
+    public function adminLoginPage()
+    {
+        $page = [
+            'title' => env('APP_NAME', "LARAVEL") . " | LOGIN ADMIN",
+            'description' => 'Sistem Pembukuan Anak Nakal',
+        ];
+        return view('loginAdmin', compact('page'));
+    }
+
+    // Validasi Login dari Admin
+    // Validate Login from Admin Page   
+
+    public function adminLogin(Request $request)
+    {
+        $validate = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:2',
+        ]);
+        if (Auth::attempt($validate)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('dashboard');
+        }
+
+        return back()->withErrors('email', 'error');
     }
 }

@@ -15,11 +15,15 @@ class PelanggaranController extends Controller
 {
     public function pelanggaran($aksi)
     {
+        $page = [
+            'title' => env('APP_NAME', "LARAVEL") . " | Admin | $aksi",
+            'description' => 'Sistem Pembukuan Anak Nakal',
+        ];
         $kode_aksi = $aksi;
         $aksi = Aksi::where('kode_aksi', $aksi)->with('siswa.kelas.jurusan', 'guruBK', 'listPelanggaran.pelanggaran')->first();
         $siswa = $aksi->siswa ?? null;
         $pelanggaranAll = Pelanggaran::all();
-        return view('pelanggaran', compact('aksi', 'siswa', 'kode_aksi', 'pelanggaranAll'));
+        return view('pelanggaran', compact('aksi', 'siswa', 'kode_aksi', 'pelanggaranAll', 'page'));
     }
 
     public function print(Request $request)

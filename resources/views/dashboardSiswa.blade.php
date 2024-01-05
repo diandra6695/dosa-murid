@@ -1,4 +1,4 @@
-<x-header />
+<x-header :page="$page" />
 @if ($siswa == null)
     <div class="text-xl w-full bg-slate-900 rounded-xl p-5 text-white text-center">..:: SISWA TIDAK DITEMUKAN
         ::..

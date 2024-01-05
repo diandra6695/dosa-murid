@@ -1,4 +1,4 @@
-<x-header />
+<x-header :page="$page" />
 <div class="flex">
 
     <div class="side-bar fixed bg-black border  p-5 mx-4 my-3 rounded-3xl">

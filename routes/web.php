@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelanggaranController;
 use App\Http\Controllers\ProfileController;
@@ -36,17 +37,28 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/', [LoginController::class, 'index'])->name('user');
-Route::get('/verif', [LoginController::class, 'test'])->name('verif');
-Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
-Route::get('/cari', [SiswaController::class, 'admin'])->name('siswa.admin');
+Route::get('/verif', [LoginController::class, 'roleAction'])->name('verif');
+Route::get('/adminlogin', [LoginController::class, 'adminLoginPage'])->name('login.admin');
+Route::post('/adminlogin', [LoginController::class, 'adminLogin'])->name('adminLoginAction');
+Route::get('/search', [SiswaController::class, 'index'])->name('siswa.index');
 Route::get('/dashboard-siswa', [SiswaController::class, 'dashboard', 'totalPoint'])->name('dashboard.siswa');
-Route::get('/dashboard', [SiswaController::class, 'dashboard', 'totalPoint'])->name('dashboard');
-Route::get('/result', [SiswaController::class, 'result'])->name('result');
-Route::get('/pelanggaran/{aksi}', [PelanggaranController::class, 'pelanggaran'])->name('pelanggaran');
-Route::post('/pelanggaran/store/aksi', [PelanggaranController::class, 'storeAksi'])->name('pelanggaran.store.aksi');
-Route::post('/pelanggaran/add/{aksi}', [PelanggaranController::class, 'addAksi'])->name('pelanggaran.add.aksi');
-Route::post('/pelanggaran/print', [PelanggaranController::class, 'print'])->name('pelanggaran.print');
-Route::post('/pelanggaran/remove/{aksi}', [PelanggaranController::class, 'removeAksi'])->name('pelanggaran.remove.aksi');
-Route::middleware(['auth', 'role:guru'])->group(function () {
+Route::get('/result/siswa', [SiswaController::class, 'resultSiswa', 'totalPoint'])->name('dashboard');
+// Route::get('/result', [AdminController::class, 'result'])->name('result');
+// Route::get('/pelanggaran/{aksi}', [PelanggaranController::class, 'pelanggaran'])->name('pelanggaran');
+// Route::post('/pelanggaran/store/aksi', [PelanggaranController::class, 'storeAksi'])->name('pelanggaran.store.aksi');
+// Route::post('/pelanggaran/add/{aksi}', [PelanggaranController::class, 'addAksi'])->name('pelanggaran.add.aksi');
+// Route::post('/pelanggaran/print', [PelanggaranController::class, 'print'])->name('pelanggaran.print');
+// Route::post('/pelanggaran/remove/{aksi}', [PelanggaranController::class, 'removeAksi'])->name('pelanggaran.remove.aksi');
+
+// access this route only for Admin and Teachers
+// IF YOU FOUND THE BUG(FEATURE) YOU CAN REPORT THIS IN ISSUE GIRHUB PAGE
+
+Route::middleware(['role', 'auth'])->group(function () {
+    Route::get('/result', [AdminController::class, 'result'])->name('result');
+    // Route::get('/result', [AdminController::class, 'result'])->name('result');
+    Route::get('/pelanggaran/{aksi}', [PelanggaranController::class, 'pelanggaran'])->name('pelanggaran');
+    Route::post('/pelanggaran/store/aksi', [PelanggaranController::class, 'storeAksi'])->name('pelanggaran.store.aksi');
+    Route::post('/pelanggaran/add/{aksi}', [PelanggaranController::class, 'addAksi'])->name('pelanggaran.add.aksi');
+    Route::post('/pelanggaran/print', [PelanggaranController::class, 'print'])->name('pelanggaran.print');
+    Route::post('/pelanggaran/remove/{aksi}', [PelanggaranController::class, 'removeAksi'])->name('pelanggaran.remove.aksi');
 });

@@ -7,24 +7,19 @@ use App\Models\GuruBK;
 use App\Models\Pelanggaran;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SiswaController extends Controller
 {
     public function index()
     {
-        return view('siswa');
+        $page = [
+            'title' => env('APP_NAME', "LARAVEL") . " | LOGIN ADMIN",
+            'description' => 'Sistem Pembukuan Anak Nakal',
+        ];
+        return view('cariSiswa', compact('page'));
     }
-    public function admin()
-    {
-        return view('adminSiswa');
-    }
-    public function result(Request $request)
-    {
-        $nis = $request->nis;
-        $siswa = Siswa::where('nis', $nis)->with('kelas.jurusan')->first();
-        $guruBK = GuruBK::all();
-        return view('result', compact('nis', 'siswa', 'guruBK'));
-    }
+
 
     // public function dashboard()
     // {
@@ -48,13 +43,26 @@ class SiswaController extends Controller
         return $total;
     }
 
-    public function dashboard(Request $request)
+    public function resultSiswa(Request $request)
     {
+        if (Auth::user()->role !== "siswa") {
+            return redirect('/result?nis=' . $request->nis);
+        }
+
         $nis = $request->nis;
         $nganu = Siswa::where('nis', $request->nis)->with('aksi.listPelanggaran.pelanggaran')->first();
         $pelanggaran = Pelanggaran::all();
         $siswa = Siswa::where('nis', $nis)->with('kelas.jurusan')->first();
+        if ($siswa) {
+            $title = $siswa->nama;
+        } else {
+            $title = " dengan Nis $nis tidak ada";
+        }
+        $page = [
+            'title' => env('APP_NAME', "LARAVEL") . " | Siswa $title",
+            'description' => 'Sistem Pembukuan Anak Nakal',
+        ];
         // $aksi = Aksi::where('kode_aksi', $aksi)->with('siswa.kelas.jurusan', 'guruBK', 'listPelanggaran.pelanggaran')->first();
-        return view('dashboardSiswa', compact('nis', 'siswa', 'pelanggaran', 'nganu'));
+        return view('dashboardSiswa', compact('nis', 'siswa', 'pelanggaran', 'nganu', 'page'));
     }
 }
