@@ -2,7 +2,7 @@
 <div class="flex">
 
     <div class="side-bar fixed bg-black border  p-5 mx-4 my-3 rounded-3xl">
-        <div class="logo flex gap-2 items-center">
+        <div class="logo flex gap-2 justify-center w-full">
             <img class="w-10" src="{{ asset('img/logo.png') }}" alt="">
         </div>
         <div class="navigation flex flex-col gap-56 mb-3 ">
@@ -33,10 +33,10 @@
                 </li>
             </ul>
             <li class="rounded-2xl list-none  text-white p-3">
-                <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
-                        class="text-3xl material-symbols-outlined">
-                        logout
-                    </span></a>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit" value="1" class="text-3xl material-symbols-outlined">Logout</button>
+                </form>
             </li>
 
         </div>

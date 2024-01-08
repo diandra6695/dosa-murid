@@ -8,7 +8,8 @@
             <div class="text-md text-center mb-6">Sistem pencatatan pelanggaran siswa</div>
 
             <div class="text-sm my-3 ml-1">Cari tahu status Pelanggran Anda di bawah</div>
-            <form action="{{ route('verif') }}" class="w-full">
+            <form action="{{ route('verif') }}" class="w-full" method="POST">
+                @csrf
                 <select id="role" name="role"
                     class="bg-white shadow border-none rounded-xl px-5 py-3 focus:empat-second focus:empat-second block w-full">
                     <option value="" disabled selected>Pilih tipe pengguna</option>

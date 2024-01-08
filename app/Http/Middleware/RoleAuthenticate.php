@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleAuthenticate
@@ -16,8 +17,13 @@ class RoleAuthenticate
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role == "siswa") {
-            return redirect()->route('user');
+        if (Session::has('role')) {
+            $role = Session::get('role');
+        } else {
+            $role = "siswa";
+        }
+        if ($role == "siswa") {
+            return redirect()->route('home');
         } else {
             return $next($request);
         }

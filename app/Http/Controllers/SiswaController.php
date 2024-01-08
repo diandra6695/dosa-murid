@@ -8,6 +8,7 @@ use App\Models\Pelanggaran;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class SiswaController extends Controller
 {
@@ -45,7 +46,13 @@ class SiswaController extends Controller
 
     public function resultSiswa(Request $request)
     {
-        if (Auth::user()->role !== "siswa") {
+        // variabel Role get from Session
+
+        if (Session::has('role')) {
+            $role = Session::get('role');
+        }
+        // Statement 
+        if ($role !== "siswa") {
             return redirect('/result?nis=' . $request->nis);
         }
 

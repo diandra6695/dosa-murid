@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -36,7 +37,13 @@ class LoginController extends Controller
         $validate = $request->validate([
             'role' => 'required|min:4'
         ]);
-
+        if (Session::has('role')) {
+            if (Session::get('role') !== 'siswa') {
+                return redirect()->route('siswa.index')->with('message', 'Anda sudah login sebelumnya');
+            }
+        }
+        // make Session
+        Session::put('role', $request->role);
         if ($request->role == "siswa") {
             return redirect()->route('siswa.index')->with('message', "kamu login menggunakan Role Siswa");
         } else {
@@ -65,7 +72,7 @@ class LoginController extends Controller
         if (Auth::attempt($validate)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('search');
         }
 
         return back()->withErrors('email', 'error');
