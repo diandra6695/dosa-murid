@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GuruController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelanggaranController;
 use App\Http\Controllers\ProfileController;
@@ -62,4 +63,10 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::post('/pelanggaran/add/{aksi}', [PelanggaranController::class, 'addAksi'])->name('pelanggaran.add.aksi');
     Route::post('/pelanggaran/print', [PelanggaranController::class, 'print'])->name('pelanggaran.print');
     Route::post('/pelanggaran/remove/{aksi}', [PelanggaranController::class, 'removeAksi'])->name('pelanggaran.remove.aksi');
+
+
+    // add guru BK
+    Route::resources([
+        'teachers' => GuruController::class,
+    ]);
 });

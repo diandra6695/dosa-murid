@@ -14,7 +14,7 @@ class GuruBK extends Model
         'nama',
         'nip',
         'alamat',
-        'no_telepon',
+        'nomor_telepon',
     ];
     public function aksi()
     {

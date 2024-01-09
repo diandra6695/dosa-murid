@@ -3,43 +3,49 @@
 
     <div class="side-bar fixed bg-black border  p-5 mx-4 my-3 rounded-3xl">
         <div class="logo flex gap-2 justify-center w-full">
-            <img class="w-10" src="{{ asset('img/logo.png') }}" alt="">
+            <img class="w-10 rounded-xl" src="{{ asset('img/logo.png') }}" alt="">
         </div>
-        <div class="navigation flex flex-col gap-56 mb-3 ">
-            <ul>
-                <li class="rounded-2xl  text-white p-3">
-                    <a class="" href="{{ route('dashboard') }}?nis={{ $siswa->nis }}"><span
-                            class="text-3xl material-symbols-outlined">
-                            home
-                        </span></a>
+        @if ($siswa !== null)
+            <div class="navigation flex flex-col gap-56 mb-3 ">
+                <ul>
+                    <li class="rounded-2xl  text-white p-3">
+                        <a class="" href="{{ route('home') }}"><span class="text-3xl material-symbols-outlined">
+                                home
+                            </span></a>
+                    </li>
+                    <li class="rounded-2xl  text-white p-3">
+                        <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
+                                class="text-3xl material-symbols-outlined active">
+                                note_alt
+                            </span></a>
+                    </li>
+                    <li class="rounded-2xl  text-white p-3">
+                        <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
+                                class="text-3xl material-symbols-outlined">
+                                format_list_bulleted
+                            </span></a>
+                    </li>
+                    <li class="rounded-2xl  text-white p-3">
+                        <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
+                                class="text-3xl material-symbols-outlined">
+                                receipt_long
+                            </span></a>
+                    </li>
+                    <li class="rounded-2xl  text-white p-3">
+                        <a class="" href="/teachers"><span class="text-3xl material-symbols-outlined">
+                                account_circle
+                            </span></a>
+                    </li>
+                </ul>
+                <li class="rounded-2xl list-none  text-white p-3">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" value="1" class="text-3xl material-symbols-outlined">Logout</button>
+                    </form>
                 </li>
-                <li class="rounded-2xl  text-white p-3">
-                    <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
-                            class="text-3xl material-symbols-outlined">
-                            note_alt
-                        </span></a>
-                </li>
-                <li class="rounded-2xl  text-white p-3">
-                    <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
-                            class="text-3xl material-symbols-outlined">
-                            format_list_bulleted
-                        </span></a>
-                </li>
-                <li class="rounded-2xl  text-white p-3">
-                    <a class="" href="{{ route('result') }}?nis={{ $siswa->nis }}"><span
-                            class="text-3xl material-symbols-outlined">
-                            receipt_long
-                        </span></a>
-                </li>
-            </ul>
-            <li class="rounded-2xl list-none  text-white p-3">
-                <form action="{{ route('logout') }}" method="post">
-                    @csrf
-                    <button type="submit" value="1" class="text-3xl material-symbols-outlined">Logout</button>
-                </form>
-            </li>
 
-        </div>
+            </div>
+        @endif
     </div>
 
     <div class="bg-white shadow-xl rounded-xl p-4 container mt-3 ml-28 w-11/12 mb-5">
@@ -87,7 +93,7 @@
                     </div>
 
                     <div class="mb-5">
-                        <label for="kode_bk" class="block mb-2 text-lg font-medium">Guru BK</label>
+                        <label for="kode_bk" class="block mb-2 text-lg font-medium">Guru</label>
                         <select id="kode_bk" name="kode_bk"
                             class="bg-white shadow border-none rounded-xl px-5 py-3 focus:empat-second focus:empat-second block w-full">
                             <option value="" disabled selected>--- PILIH GURU BK ---</option>

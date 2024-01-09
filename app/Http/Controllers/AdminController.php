@@ -6,6 +6,7 @@ use App\Models\Siswa;
 use App\Models\GuruBK;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
@@ -22,7 +23,8 @@ class AdminController extends Controller
             'title' => env('APP_NAME', "LARAVEL") . " | Nis : $nis ",
             'description' => 'Sistem Pembukuan Anak Nakal',
         ];
-        return view('result', compact('nis', 'siswa', 'guruBK', 'page'));
+        $user = Auth::user(['name', 'email']);
+        return view('result', compact('nis', 'siswa', 'guruBK', 'page', 'user'));
     }
     public function logout(Request $request): RedirectResponse
     {
