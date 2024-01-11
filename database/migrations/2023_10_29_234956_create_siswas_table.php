@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('alamat');
             $table->string('no_telepon');
+            $table->string('no_telepon_ortu');
             $table->string('profile')->default('no_profile.png');
             $table->string('kode_kelas');
             $table->foreign('kode_kelas')->references('kode_kelas')->on('kelas')->onDelete('cascade');

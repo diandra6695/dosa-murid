@@ -18,8 +18,10 @@ class Siswa extends Model
         'jenis_kelamin',
         'alamat',
         'no_telepon',
+        'no_telepon_ortu',
         'profile',
         'kode_kelas',
+
     ];
 
     public function kelas()

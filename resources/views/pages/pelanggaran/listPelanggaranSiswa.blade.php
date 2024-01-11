@@ -1,11 +1,14 @@
 <x-header :page="$page" />
+<div class="flex">
 
-<section class="w-screen h-screen flex justify-center items-center">
-    <div class="bg-base flex justify-center items-center p-8 h-2/3 md:w-1/3 rounded-3xl shadow-xl">
-        <div class="">
+    <x-sidebar-admin :dataSidebar="$get_nis_from_cookie" :currentRoute="$nameRoute" />
 
-            <div class="text-2xl text-center mb-2 font-bold">Dosa-Murid</div>
-            <div class="text-md text-center mb-6">Sistem pencatatan pelanggaran siswa</div>
+    <div class="bg-white shadow-xl rounded-xl p-4 container mt-3 ml-28 w-11/12 mb-5">
+        <x-title />
+        <div class="text-xl font-semibold py-3 px-4 bg-empat rounded-xl text-black mb-3">List Aksi Siswa |
+            {{ $namaSiswa }}
+        </div>
+        <div class="bg-base p-8 rounded-3xl">
             @if (session('message'))
                 <div id="toast-success"
                     class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
@@ -32,23 +35,49 @@
                     </button>
                 </div>
             @endif
-            <div class="text-sm my-3 ml-1">Masukkan NIS kamu.</div>
-            <form action="{{ route('dashboard') }}" class="w-full">
-                <div class="flex flex-wrap justify-center">
-                    <input type="number" id="nis" name="nis" placeholder="NIS" required
-                        class="block w-full mb-3 p-4 text-gray-900 border-none rounded-3xl shadow bg-white sm:text-md focus:ring-blue-500 focus:border-blue-500 ">
-                    <button type="submit"
-                        class="px-5 w-full py-3 mb-3 text-md font-medium text-center text-white bg-second shadow rounded-3xl focus:outline-none">Cari</button>
-                </div>
-            </form>
-            <footer class="text-center text-xs text-gray-500 mt-10">
-                <a href="http://real.bogeng.skom.id" class="hover:underline hover:text-blue-200">PT. Bogeng Media
-                    Prima</a> <span class="text-red-400">X</span> <a href="http://tefa-studio.com"
-                    class="hover:underline hover:text-blue-200">Tefa Studio</a>
-            </footer>
+            <div class=" block sm:rounded-lg">
+                @if ($siswaPelanggaran !== null)
+                    @foreach ($siswaPelanggaran as $aksi)
+                        <a href="/pelanggaran/{{ $aksi->kode_aksi }}"
+                            class="w-[100%] bg-gray-100 shadow-md rounded-lg mb-2 px-4 py-2 ">
+                            {{ $aksi->kode_aksi }}
+                        </a>
+                    @endforeach
+                @else
+                    <div class="text-xl w-full bg-slate-900 rounded-xl p-5 text-white text-center">..:: SISWA TIDAK
+                        DITEMUKAN
+                        ::..
+                    </div>
+                @endif
+                {{-- {{ $siswaPelanggaran->links() }} --}}
+            </div>
+
+
         </div>
+
     </div>
 
-</section>
+</div>
+<script>
+    function deleteData(id) {
+        Swal.fire({
+            title: "Kamu Yakin ingin mengahapus?",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Hapus",
+            denyButtonText: `Jangan Hapus`
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axios.delete(`/students/${id}`);
+                setTimeout(() => {
 
+                    window.location.href = "/students"
+                }, 1000);
+            } else if (result.isDenied) {
+                Swal.fire("Operasi digagalkan", "", "info");
+            }
+        });
+    }
+</script>
 <x-footer />

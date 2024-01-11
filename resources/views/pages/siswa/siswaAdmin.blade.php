@@ -5,15 +5,15 @@
 
     <div class="bg-white shadow-xl rounded-xl p-4 container mt-3 ml-28 w-11/12 mb-5">
         <x-title />
-        <div class="text-xl font-semibold py-3 px-4 bg-empat rounded-xl text-black mb-3">List Guru
+        <div class="text-xl font-semibold py-3 px-4 bg-empat rounded-xl text-black mb-3">List Siswa
         </div>
         <div class="bg-base p-8 rounded-3xl">
             <div class="w-full flex justify-end ">
-                <a href="/teachers/create"
+                <a href="/students/create"
                     class=" flex items-center gap-4 mb-4 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-700 ">
                     <span class="material-symbols-outlined">
                         person_add
-                    </span>Tambah Guru</a>
+                    </span>Tambah Siswa</a>
             </div>
             @if (session('message'))
                 <div id="toast-success"
@@ -46,19 +46,19 @@
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
+                                Gambar
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Nama
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                NIP
+                                NISN
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Alamat
+                                NIS
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                No.Telepon
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Kode Guru
+                                Kelas
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Aksi
@@ -66,27 +66,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($gurus as $guru)
+                        @foreach ($siswas as $siswa)
                             <tr
                                 class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $guru->nama }}
+                                    {{-- {{ $siswa->profile }} --}}
+                                    <img src="{{ Storage::url($siswa->profile) }}" alt="" srcset=""
+                                        class="w-16 h-16 aspect-square object-cover ">
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $guru->nip }}
+                                    {{ $siswa->nama }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $guru->alamat }}
+                                    {{ $siswa->nisn }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $guru->nomor_telepon }}
+                                    {{ $siswa->nis }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $guru->kode_bk }}
+                                    {{ $siswa->kelas->nama_kelas }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <button onclick="deleteData({{ $guru->id }})"
+                                    <a href="/students/{{ $siswa->id }}"
+                                        class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-400 text-white font-bold ">Edit</a>
+                                    <button onclick="deleteData({{ $siswa->id }})"
                                         class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-400 text-white font-bold ">
                                         Hapus
                                     </button>
@@ -95,7 +99,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $gurus->links() }}
+                {{ $siswas->links() }}
             </div>
 
 
@@ -115,10 +119,10 @@
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                axios.delete(`/teachers/${id}`);
+                axios.delete(`/students/${id}`);
                 setTimeout(() => {
 
-                    window.location.href = "/teachers"
+                    window.location.href = "/students"
                 }, 1000);
             } else if (result.isDenied) {
                 Swal.fire("Operasi digagalkan", "", "info");

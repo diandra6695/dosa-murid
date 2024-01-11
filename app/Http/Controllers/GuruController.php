@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\GuruBK;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Route;
 
 class GuruController extends Controller
 {
@@ -12,12 +14,14 @@ class GuruController extends Controller
      */
     public function index()
     {
+        $nameRoute = Route::currentRouteName(); // string
         $page = [
             'title' => env('APP_NAME', "LARAVEL") . " | List Guru ",
             'description' => 'Sistem Pembukuan Anak Nakal',
         ];
-        $gurus = GuruBK::all();
-        return view('guruBK', compact('page', 'gurus'));
+        $get_nis_from_cookie = Session::get('nis');
+        $gurus = GuruBK::orderBy('id', 'desc')->paginate(10);
+        return view('guruBK', compact('page', 'gurus', 'get_nis_from_cookie', 'nameRoute'));
     }
 
     /**
@@ -25,11 +29,13 @@ class GuruController extends Controller
      */
     public function create()
     {
+        $get_nis_from_cookie = Session::get('nis');
+        $nameRoute = Route::currentRouteName(); // string
         $page = [
             'title' => env('APP_NAME', "LARAVEL") . " | List Guru ",
             'description' => 'Sistem Pembukuan Anak Nakal',
         ];
-        return view('addGuruBK', compact('page'));
+        return view('addGuruBK', compact('page', 'nameRoute', 'get_nis_from_cookie'));
     }
 
     /**

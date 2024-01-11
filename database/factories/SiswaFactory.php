@@ -27,6 +27,7 @@ class SiswaFactory extends Factory
             'jenis_kelamin' => fake()->randomElement(['L', 'P']),
             'alamat' => fake()->address(),
             'no_telepon' => fake()->phoneNumber(),
+            'no_telepon_ortu' => fake()->phoneNumber(),
             'kode_kelas' => fake()->randomElement($kode_kelas),
         ];
     }

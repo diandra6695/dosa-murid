@@ -22,7 +22,9 @@
                 </div>
             </form>
             <footer class="text-center text-xs text-gray-500 mt-10">
-                <p class="">PT. Bogeng Media Prima <span class="text-red-400">X</span> Tefa Studio</p>
+                <a href="http://real.bogeng.skom.id" class="hover:underline hover:text-blue-200">PT. Bogeng Media
+                    Prima</a> <span class="text-red-400">X</span> <a href="http://tefa-studio.com"
+                    class="hover:underline hover:text-blue-200">Tefa Studio</a>
             </footer>
         </div>
     </div>

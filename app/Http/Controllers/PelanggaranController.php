@@ -3,18 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aksi;
-use App\Models\ListPelanggaran;
-use App\Models\Pelanggaran;
 use App\Models\Siswa;
+use Mike42\Escpos\Printer;
+use App\Models\Pelanggaran;
 use Illuminate\Http\Request;
 use Mike42\Escpos\EscposImage;
+use App\Models\ListPelanggaran;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-use Mike42\Escpos\Printer;
 
 class PelanggaranController extends Controller
 {
+    public function listPelanggaranPage(string $nis)
+    {
+        $get_nis_from_cookie = Session::get('nis');
+        $nameRoute = Route::currentRouteName(); // string
+        $page = [
+            'title' => env('APP_NAME', "LARAVEL") . " | List Pelanggaran",
+            'description' => 'Sistem Pembukuan Anak Nakal',
+        ];
+        $namaSiswa = Session::get('name');
+        $siswaPelanggaran = Aksi::where('nis_siswa', $nis)->get();
+        return view('pages.pelanggaran.listPelanggaranSiswa', compact('page', 'siswaPelanggaran', 'get_nis_from_cookie', 'nameRoute', 'namaSiswa'));
+    }
     public function pelanggaran($aksi)
     {
+        $get_nis_from_cookie = Session::get('nis');
+        $nameRoute = Route::currentRouteName(); // string
         $page = [
             'title' => env('APP_NAME', "LARAVEL") . " | Admin | $aksi",
             'description' => 'Sistem Pembukuan Anak Nakal',
@@ -23,7 +39,7 @@ class PelanggaranController extends Controller
         $aksi = Aksi::where('kode_aksi', $aksi)->with('siswa.kelas.jurusan', 'guruBK', 'listPelanggaran.pelanggaran')->first();
         $siswa = $aksi->siswa ?? null;
         $pelanggaranAll = Pelanggaran::all();
-        return view('pelanggaran', compact('aksi', 'siswa', 'kode_aksi', 'pelanggaranAll', 'page'));
+        return view('pelanggaran', compact('aksi', 'siswa', 'kode_aksi', 'pelanggaranAll', 'page', 'get_nis_from_cookie', 'nameRoute'));
     }
 
     public function print(Request $request)

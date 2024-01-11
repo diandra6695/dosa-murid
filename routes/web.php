@@ -44,7 +44,7 @@ Route::post('/adminlogin', [LoginController::class, 'adminLogin'])->name('adminL
 Route::get('/search', [SiswaController::class, 'index'])->name('siswa.index');
 Route::get('/dashboard-siswa', [SiswaController::class, 'dashboard', 'totalPoint'])->name('dashboard.siswa');
 Route::get('/result/siswa', [SiswaController::class, 'resultSiswa', 'totalPoint'])->name('dashboard');
-Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+
 // Route::get('/result', [AdminController::class, 'result'])->name('result');
 // Route::get('/pelanggaran/{aksi}', [PelanggaranController::class, 'pelanggaran'])->name('pelanggaran');
 // Route::post('/pelanggaran/store/aksi', [PelanggaranController::class, 'storeAksi'])->name('pelanggaran.store.aksi');
@@ -63,8 +63,14 @@ Route::middleware(['role', 'auth'])->group(function () {
     Route::post('/pelanggaran/add/{aksi}', [PelanggaranController::class, 'addAksi'])->name('pelanggaran.add.aksi');
     Route::post('/pelanggaran/print', [PelanggaranController::class, 'print'])->name('pelanggaran.print');
     Route::post('/pelanggaran/remove/{aksi}', [PelanggaranController::class, 'removeAksi'])->name('pelanggaran.remove.aksi');
-
-
+    Route::get('/students', [SiswaController::class, 'adminSiswaPage'])->name('siswaAdmin');
+    Route::get('/students/create', [SiswaController::class, 'adminSiswaAddPage'])->name('siswaAdminAdd');
+    Route::post('/students', [SiswaController::class, 'adminSiswaAddAction'])->name('siswaAdminAction');
+    Route::get('/students/{id}', [SiswaController::class, 'adminSiswaUpdatePage'])->name('siswaAdminUpdate');
+    Route::post('/students/update', [SiswaController::class, 'adminSiswaUpdateAction'])->name('siswaAdminUpdateAction');
+    Route::delete('/students/{id}', [SiswaController::class, 'adminSiswaDeleteAction'])->name('siswaAdminDeleteAction');
+    Route::get('/listpelanggaran/{nis}', [PelanggaranController::class, 'listPelanggaranPage'])->name('listPelanggaran');
+    Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
     // add guru BK
     Route::resources([
         'teachers' => GuruController::class,

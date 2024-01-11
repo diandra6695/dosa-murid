@@ -10,12 +10,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Route;
 
 class AdminController extends Controller
 {
     //
     public function result(Request $request)
     {
+        $nameRoute = Route::currentRouteName(); // string
         $nis = $request->nis;
         $siswa = Siswa::where('nis', $nis)->with('kelas.jurusan')->first();
         $guruBK = GuruBK::all();
@@ -23,8 +25,10 @@ class AdminController extends Controller
             'title' => env('APP_NAME', "LARAVEL") . " | Nis : $nis ",
             'description' => 'Sistem Pembukuan Anak Nakal',
         ];
+        Session::put('name', $siswa->nama);
         $user = Auth::user(['name', 'email']);
-        return view('result', compact('nis', 'siswa', 'guruBK', 'page', 'user'));
+        $get_nis_from_cookie = Session::get('nis');
+        return view('result', compact('nis', 'siswa', 'guruBK', 'page', 'user', 'get_nis_from_cookie', 'nameRoute'));
     }
     public function logout(Request $request): RedirectResponse
     {
